@@ -31,7 +31,7 @@
                                 <td th:text="${painting.author}">Viktor</td>
                                 <td th:text="${painting.style}">EXPRESSIONISM</td>
                                 <td style="width: 15%">
-                                    <form th:action="@{'paintings/' + ${painting.id}}" method="DELETE">
+                                    <form th:action="@{'paintings/' + ${painting.id}}" th:method="DELETE">
                                         <button class="btn-danger btn">Delete</button>
                                     </form>
                                 </td>
@@ -56,7 +56,7 @@
                                 <td th:text="${painting.author}">Some Author</td>
                                 <td th:text="${#temporals.format(painting.createdOn, 'dd-MM-yyyy hh:mm')}"></td>
                                 <td>
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/favourites/' + ${painting.id}}" th:method="DELETE">
                                         <button class="btn-danger btn">X</button>
                                     </form>
                                 </td>
@@ -86,7 +86,7 @@
                                     </form>
                                 </div>
                                 <div class="rate">
-                                    <form th:action="@{'/paintings/' + ${painting.id}}" method="PUT">
+                                    <form th:action="@{'/paintings/' + ${painting.id}}" th:method="PUT">
                                         <button class="btn-primary btn">Vote</button>
                                     </form>
                                 </div>

@@ -9,9 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -63,6 +61,48 @@ public class PaintingController {
 
         return new ModelAndView("redirect:/home");
     }
+
+    @PostMapping("favourites/{id}")
+    public String favouritePainting(@PathVariable UUID id, HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getUserById(userId);
+
+        paintingService.createFavouritePainting(id, user);
+
+        return "redirect:/home";
+    }
+
+    @DeleteMapping("/favourites/{id}")
+    public String deleteFavouritePainting(@PathVariable UUID id) {
+
+        paintingService.deleteFavouritePainting(id);
+
+        return "redirect:/home";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deletePainting(@PathVariable UUID id) {
+
+        paintingService.deletePainting(id);
+
+        return "redirect:/home";
+    }
+
+    @PutMapping("/{id}")
+    public String votePainting(@PathVariable UUID id) {
+
+        paintingService.votePainting(id);
+
+        return "redirect:/home";
+    }
+
+
+
+
+
+
+
 
 
 
