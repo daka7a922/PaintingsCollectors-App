@@ -11,16 +11,16 @@ import lombok.Data;
 @Builder
 public class RegisterRequest {
 
-    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters")
     @NotNull
+    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters")
     private String username;
 
-    @Email
     @NotNull
+    @Email
     private String email;
 
-    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters")
     @NotNull
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters")
     private String password;
 
     @NotNull

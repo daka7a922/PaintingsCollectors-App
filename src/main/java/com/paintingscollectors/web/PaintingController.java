@@ -23,7 +23,8 @@ public class PaintingController {
     private final PaintingService paintingService;
 
     @Autowired
-    public PaintingController(UserService userService, PaintingService paintingService) {
+    public PaintingController(UserService userService,
+                              PaintingService paintingService) {
         this.userService = userService;
         this.paintingService = paintingService;
     }
@@ -96,14 +97,6 @@ public class PaintingController {
 
         return "redirect:/home";
     }
-
-
-
-
-
-
-
-
 
 
 }

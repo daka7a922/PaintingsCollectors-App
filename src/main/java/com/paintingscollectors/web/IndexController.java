@@ -33,11 +33,9 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public ModelAndView getIndexPage() {
+    public String getIndexPage() {
 
-        ModelAndView modelAndView = new ModelAndView("index");
-
-        return modelAndView;
+        return "index";
     }
 
     @GetMapping("/register")
@@ -81,7 +79,7 @@ public class IndexController {
 
         User loggedInUser = userService.login(loginRequest);
 
-        session.setAttribute("user_id",loggedInUser.getId());
+        session.setAttribute("user_id", loggedInUser.getId());
 
         return "redirect:/home";
     }
@@ -107,7 +105,7 @@ public class IndexController {
 
         session.invalidate();
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 }

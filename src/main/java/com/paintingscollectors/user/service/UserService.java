@@ -46,7 +46,7 @@ public class UserService {
 
     public void registerNewUser(RegisterRequest registerRequest) {
 
-        Optional<User> optionalUser = userRepository.findByUsername(registerRequest.getUsername());
+        Optional<User> optionalUser = userRepository.findByUsernameOrEmail(registerRequest.getUsername(),registerRequest.getEmail());
 
         if (optionalUser.isPresent()) {
             throw new DomainException("Username already exists");
