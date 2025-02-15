@@ -101,7 +101,7 @@ public class PaintingService {
         log.info("Painting with id [%s] removed".formatted(id));
     }
 
-    public void votePainting(UUID id) {
+    public void incrementVotes(UUID id) {
 
         Painting painting = getById(id);
         painting.setVotes(painting.getVotes() + 1);

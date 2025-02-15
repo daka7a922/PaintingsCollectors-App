@@ -63,7 +63,7 @@ public class PaintingController {
     }
 
     @PostMapping("favourites/{id}")
-    public String favouritePainting(@PathVariable UUID id, HttpSession session) {
+    public String makeFavouritePainting(@PathVariable UUID id, HttpSession session) {
 
         UUID userId = (UUID) session.getAttribute("user_id");
         User user = userService.getUserById(userId);
@@ -90,9 +90,9 @@ public class PaintingController {
     }
 
     @PutMapping("/{id}")
-    public String votePainting(@PathVariable UUID id) {
+    public String updateVotes(@PathVariable UUID id) {
 
-        paintingService.votePainting(id);
+        paintingService.incrementVotes(id);
 
         return "redirect:/home";
     }
