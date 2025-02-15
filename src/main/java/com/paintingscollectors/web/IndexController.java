@@ -1,5 +1,7 @@
 package com.paintingscollectors.web;
 
+import com.paintingscollectors.painting.model.Painting;
+import com.paintingscollectors.painting.service.PaintingService;
 import com.paintingscollectors.user.model.User;
 import com.paintingscollectors.user.service.UserService;
 import com.paintingscollectors.web.dto.LoginRequest;
@@ -13,16 +15,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
 public class IndexController {
 
     private final UserService userService;
+    private final PaintingService paintingService;
 
     @Autowired
-    public IndexController(UserService userService) {
+    public IndexController(UserService userService,
+                           PaintingService paintingService) {
+
         this.userService = userService;
+        this.paintingService = paintingService;
     }
 
     @GetMapping("/")
@@ -85,9 +92,12 @@ public class IndexController {
         UUID userId = (UUID) session.getAttribute("user_id");
         User loggedInUser = userService.getUserById(userId);
 
+        List<Painting> allPaintings = paintingService.getAllPaintings();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         modelAndView.addObject("user", loggedInUser);
+        modelAndView.addObject("allPaintings", allPaintings);
 
         return modelAndView;
     }

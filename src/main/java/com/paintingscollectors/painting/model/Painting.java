@@ -22,7 +22,7 @@ public class Painting {
     private String name;
 
     @Column(nullable = false)
-    private String Author;
+    private String author;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

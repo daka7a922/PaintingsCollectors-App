@@ -54,7 +54,7 @@
                                 </td>
                                 <td th:text="${painting.name}">Mona Lisa</td>
                                 <td th:text="${painting.author}">Some Author</td>
-                                <td th:text="${painting.createdOn}">2025-02-10T17:19:08.613321</td>
+                                <td th:text="${#temporals.format(painting.createdOn, 'dd-MM-yyyy hh:mm')}"></td>
                                 <td>
                                     <form action="" method="">
                                         <button class="btn-danger btn">X</button>
@@ -71,29 +71,29 @@
                 <div class="home-fields" style="height: 58vh; overflow: auto">
                     <h3 class="my-paintings">Other Paintings</h3>
                     <ul class="list-group list-group-vertical text-dark">
-                        <li>
+                        <li th:each=" painting : ${allPaintings}" th:if="${painting.owner.id != user.id}">
                             <div class="my-paintings-first-row">
                                 <div class="img1">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Mona_Lisa.jpg" width="75px" height="75" style="padding-top: 0.3em; padding-left: 0.3em; margin-top: 2.3em">
+                                    <img th:src="${painting.imageUrl}" width="75px" height="75" style="padding-top: 0.3em; padding-left: 0.3em; margin-top: 2.3em">
                                 </div>
-                                <p>Mona Lisa</p>
-                                <p>Some Author</p>
+                                <p th:text="${painting.name}"></p>
+                                <p th:text="${painting.author}"></p>
                             </div>
                             <div class="buttons-info">
                                 <div class="favorite">
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/favourites/' + ${painting.id}}" method="POST">
                                         <button class="btn-info btn">Favourite</button>
                                     </form>
                                 </div>
                                 <div class="rate">
-                                    <form action="" method="">
+                                    <form th:action="@{'/paintings/' + ${painting.id}}" method="PUT">
                                         <button class="btn-primary btn">Vote</button>
                                     </form>
                                 </div>
                             </div>
                             <div class="second-info">
-                                <p>Style: <span>IMPRESSIONISM</span></p>
-                                <p>Added by <span>viktor11</span></p>
+                                <p>Style: <span th:text="${painting.style}">IMPRESSIONISM</span></p>
+                                <p>Added by <span th:text="${painting.owner.username}">viktor11</span></p>
                             </div>
                         </li>
 
@@ -102,13 +102,9 @@
                 <div class="home-fields" style="height: 21vh; overflow: auto">
                     <h3 class="my-paintings">Most Rated Paintings</h3>
                     <div class="most-rated">
-                        <div class="rated-record">
-                            <p>Paining: <span>Mona Lisa</span></p>
-                            <p>Votes: <span>2</span></p>
-                        </div>
-                        <div class="rated-record">
-                            <p>Paining: <span>Spring </span></p>
-                            <p>Votes: <span>0</span></p>
+                        <div class="rated-record" th:each = " painting : ${allPaintings}">
+                            <p>Paining: <span th:text="${painting.name}">Mona Lisa</span></p>
+                            <p>Votes: <span th:text="${painting.votes}">2</span></p>
                         </div>
                     </div>
                 </div>

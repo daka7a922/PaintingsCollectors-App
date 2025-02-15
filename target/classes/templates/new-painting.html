@@ -6,7 +6,7 @@
 <header th:replace="~{fragments/commons::nav}"></header>
 <main>
 
-    <form class="welcome add-offer-form" method="" action="">
+    <form class="welcome add-offer-form" th:method="POST" action="/paintings" th:object="${createPaintingRequest}">
 
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add painting</span></h1>
 
@@ -14,36 +14,34 @@
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
             </div>
-            <input type="text" class="form-control" id="name" name="name"/>
-            <small class="danger" style="font-size: 15px">Error Here</small>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required />
+            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="danger" style="font-size: 15px" >Error Here</small>
         </div>
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="author" class="h4 mb-2">Author</label>
             </div>
-            <input type="text" class="form-control" id="author" name="author"/>
-            <small class="danger" style="font-size: 15px">Error Here</small>
+            <input type="text" class="form-control" id="author" name="author" th:field="*{author}" required/>
+            <small  th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="danger" style="font-size: 15px">Error Here</small>
         </div>
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="image" class="h4 mb-2">Image URL</label>
             </div>
-            <textarea type="text" class="form-control" id="image" name="image"></textarea>
-            <small class="danger" style="font-size: 15px">Error Here</small>
+            <textarea type="text" class="form-control" id="image" name="image" th:field="*{imageUrl}" required></textarea>
+            <small th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="danger" style="font-size: 15px" >Error Here</small>
         </div>
 
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="style" class="h4 mb-2">Style</label>
             </div>
-            <select class="browser-default custom-select" id="style" name="style">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
+            <select class="browser-default custom-select" id="style" name="style" th:field="*{style}">
+                <option th:each=" style : ${T(com.paintingscollectors.painting.model.Style).values()} " th:value="${style}" th:text="${style}"></option>
             </select>
-            <small class="danger" style="font-size: 15px">Error Here</small>
+            <small class="danger" style="font-size: 15px" th:if="${#fields.hasErrors('style')}" th:errors="*{style}">Error Here</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">

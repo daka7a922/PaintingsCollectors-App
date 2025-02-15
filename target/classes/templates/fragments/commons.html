@@ -13,18 +13,18 @@
 <header>
     <nav>
         <div class="home">
-            <a href="/">Paintings Collectors App</a>
-            <a href="/">Add Painting</a>
+            <a th:href="@{/}">Paintings Collectors App</a>
+            <a th:if="${user}" th:href="@{/paintings/new}">Add Painting</a>
         </div>
         <div class="links">
-            <li>
-                <a th:href="@{'/login'}">Login</a>
+            <li th:unless="${user}">
+                <a th:href="@{/login}">Login</a>
             </li>
-            <li>
-                <a th:href="@{'/register'}">Register</a>
+            <li th:unless="${user}">
+                <a th:href="@{/register}">Register</a>
             </li>
-            <li>
-                <a th:href="@{'/logout'}">Logout</a>
+            <li th:if="${user}">
+                <a th:href="@{/logout}">Logout</a>
             </li>
         </div>
     </nav>
